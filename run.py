@@ -16,10 +16,15 @@ three_day_routine = SHEET.worksheet('three')
 four_day_routine = SHEET.worksheet('four')
 five_day_routine = SHEET.worksheet('five')
 
-data_1 = three_day_routine.get_all_values()
-data_2 = four_day_routine.get_all_values()
-data_3 = five_day_routine.get_all_values()
+def get_workout_routine():
+    """
+    Gets the workout routine requested by the user
+    """
+    print("Please choose a workout routine.")
+    print("Your options are a 3 day, 4 day or 5 day routine.")
+    print("Please choose your preferred routine by entering 3,4 or 5.\n")
 
-print(data_1)
-print(data_2)
-print(data_3)
+    routine = input("Enter your choice here: ")
+    print(f"You have chosen the {routine} day workout routine")
+
+get_workout_routine()
