@@ -89,6 +89,9 @@ def update_workouts(data):
     workouts.insert_rows(data)
     print("Workout succesfully added to Workout Database.")
 
+def view_workouts():
+     pprint(workouts.get_all_values())
+     
 def main():
     """
     runs the app
