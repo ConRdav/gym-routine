@@ -18,6 +18,7 @@ SHEET = GSPREAD_CLIENT.open('gym_routine')
 three_day_routine = SHEET.worksheet('three')
 four_day_routine = SHEET.worksheet('four')
 five_day_routine = SHEET.worksheet('five')
+workouts = SHEET.worksheet("workouts")
 
 
 def get_workout_routine():
@@ -53,11 +54,47 @@ def show_routine(routine):
     else:
         pprint(five_day_routine.get_all_values())
 
+def get_input(prompt = "", cast = None, condition = None, errorMessage = None):
+    while True:
+        try: 
+            response = (cast or str)(input(prompt))
+            assert condition is None or condition(response)
+            return response
+        except:
+            print(errorMessage or "Invalid input. Try again.")
+
+
+
+
+
+def create_own_workout():
+    print("Create your own workout.\n")
+    new_workout = get_input(prompt = "Name your workout: ")
+    print("You are limited to 4 exercises to pick carefully!\n")
+    create_exercise1 = get_input(prompt = "Enter your exercise name: ")
+    create_exercise2 = get_input(prompt = "Enter your exercise name: ")
+    create_exercise3 = get_input(prompt = "Enter your exercise name: ")
+    create_exercise4 = get_input(prompt = "Enter your exercise name: ")
+    print("Now enter the workouts sets and reps.")
+    print("You are limited to numbers 1-9.\n")
+    create_sets = get_input(prompt = "Enter the amount of sets per exercise: ")
+    create_reps = get_input(prompt = "Enter the amount of reps per exercise: ")
+    print("Well done you have created your own workout!\n")
+    print("If you would like to view your workout press V or to create a new one press C.\n")
+    data = new_workout, create_exercise1, create_exercise2, create_exercise3, create_exercise4, create_sets, create_reps
+    return data 
+
+
+
+
 def main():
     """
     runs the app
     """
-    workout_routine = get_workout_routine()
+    #workout_routine = get_workout_routine()
+    create_own_workout()
 
-print("Welcome to the Gym Routine!")
+print("Welcome to the Gym Routine!\n")
+print("If you want to pick a routine press P.\n")
+print("Or if you want to create your own workout press C.\n")
 main()
