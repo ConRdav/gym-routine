@@ -74,6 +74,9 @@ def get_input(prompt = "", cast = None, condition = None, errorMessage = None):
 
 
 def create_own_workout():
+    """
+    Allows user to create own workout
+    """
     print("Create your own workout.\n")
     new_workout = get_input(prompt = "Name your workout: ")
     print("You are limited to 4 exercises to pick carefully!\n")
@@ -91,11 +94,17 @@ def create_own_workout():
     update_workouts(data)
 
 def update_workouts(data):
+    """
+    updates the workouts worksheet
+    """
     print("Updating Workout Database...\n")
     workouts.insert_rows(data)
     print("Workout succesfully added to Workout Database.")
 
 def view_workouts():
+    """
+    retrieves the workouts worksheets
+    """
      pprint(workouts.get_all_values())
 
 def validate_input(main_choice):
