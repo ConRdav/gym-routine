@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import re
+from pprint import pprint
 
 
 SCOPE = [
@@ -35,8 +36,7 @@ def get_workout_routine():
         else:
             print("Invalid entry, please enter 3, 4 or 5.")
 
-    return routine
-    
+    show_routine(routine)
 
 def validate_routine(routine):
     """
@@ -44,5 +44,20 @@ def validate_routine(routine):
     """
     pattern = re.compile('[3-5]{1}')
     return pattern.match(routine)
+    
+def show_routine(routine):
+    if routine == '3':
+        pprint(three_day_routine.get_all_values())
+    elif routine == '4':
+        pprint(four_day_routine.get_all_values())
+    else:
+        pprint(five_day_routine.get_all_values())
 
-workout_routine = get_workout_routine()
+def main():
+    """
+    runs the app
+    """
+    workout_routine = get_workout_routine()
+
+print("Welcome to the Gym Routine!")
+main()
