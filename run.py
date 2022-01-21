@@ -18,7 +18,7 @@ SHEET = GSPREAD_CLIENT.open('gym_routine')
 three_day_routine = SHEET.worksheet('three')
 four_day_routine = SHEET.worksheet('four')
 five_day_routine = SHEET.worksheet('five')
-workouts = SHEET.worksheet("workouts")
+workouts = SHEET.worksheet('workouts')
 
 
 def get_workout_routine():
@@ -77,24 +77,33 @@ def create_own_workout():
     create_exercise4 = get_input(prompt = "Enter your exercise name: ")
     print("Now enter the workouts sets and reps.")
     print("You are limited to numbers 1-9.\n")
-    create_sets = get_input(prompt = "Enter the amount of sets per exercise: ")
-    create_reps = get_input(prompt = "Enter the amount of reps per exercise: ")
+    create_sets = get_input(prompt = "Enter the amount of sets per exercise: ", cast = int)
+    create_reps = get_input(prompt = "Enter the amount of reps per exercise: ", cast = int)
     print("Well done you have created your own workout!\n")
     print("If you would like to view your workout press V or to create a new one press C.\n")
-    data = new_workout, create_exercise1, create_exercise2, create_exercise3, create_exercise4, create_sets, create_reps
-    return data 
+    data = [[new_workout, create_exercise1, create_exercise2, create_exercise3, create_exercise4, create_sets, create_reps]]
+    update_workouts(data)
 
-
-
+def update_workouts(data):
+    print("Updating Workout Database...\n")
+    workouts.insert_rows(data)
+    print("Workout succesfully added to Workout Database.")
 
 def main():
     """
     runs the app
     """
-    #workout_routine = get_workout_routine()
-    create_own_workout()
-
+    if input == 'P':
+        get_workout_routine()
+    elif input == 'C':
+        create_own_workout()
+    else:
+        view_workouts()
+    
+   
 print("Welcome to the Gym Routine!\n")
-print("If you want to pick a routine press P.\n")
-print("Or if you want to create your own workout press C.\n")
+print("To pick a routine press P.\n")
+print("To create own workout press C.\n")
+print("To view the workout database press V.\n")
+input("Enter your choice here: ")
 main()
