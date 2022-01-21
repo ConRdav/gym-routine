@@ -47,6 +47,9 @@ def validate_routine(routine):
     return pattern.match(routine)
     
 def show_routine(routine):
+    """
+    prints user requested routine
+    """
     if routine == '3':
         pprint(three_day_routine.get_all_values())
     elif routine == '4':
@@ -55,6 +58,9 @@ def show_routine(routine):
         pprint(five_day_routine.get_all_values())
 
 def get_input(prompt = "", cast = None, condition = None, errorMessage = None):
+    """
+    Input validation
+    """
     while True:
         try: 
             response = (cast or str)(input(prompt))
@@ -91,22 +97,29 @@ def update_workouts(data):
 
 def view_workouts():
      pprint(workouts.get_all_values())
-     
+
+def validate_input(main_choice):
+    """
+    validates the user input
+    """
+    pattern = re.compile('[1-3]{1}')
+    return pattern.match(main_choice)
+
 def main():
     """
     runs the app
     """
-    if input == 'P':
+    if main_choice == '1':
         get_workout_routine()
-    elif input == 'C':
+    elif main_choice == '2':
         create_own_workout()
     else:
         view_workouts()
-    
    
 print("Welcome to the Gym Routine!\n")
-print("To pick a routine press P.\n")
-print("To create own workout press C.\n")
-print("To view the workout database press V.\n")
-input("Enter your choice here: ")
+print("To pick a routine press 1.\n")
+print("To create own workout press 2.\n")
+print("To view the workout database press 3.\n")
+main_choice = input("Enter your choice here: ")
+validate_input(main_choice)
 main()
