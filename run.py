@@ -39,6 +39,7 @@ def get_workout_routine():
 
     show_routine(routine)
 
+
 def validate_routine(routine):
     """
     validates the user input
@@ -46,6 +47,7 @@ def validate_routine(routine):
     pattern = re.compile('[3-5]{1}')
     return pattern.match(routine)
     
+
 def show_routine(routine):
     """
     prints user requested routine
@@ -57,12 +59,13 @@ def show_routine(routine):
     else:
         pprint(five_day_routine.get_all_values())
 
-def get_input(prompt = "", cast = None, condition = None, errorMessage = None):
+
+def get_input(prompt="", cast=None, condition=None, errorMessage=None):
     """
     Input validation
     """
     while True:
-        try: 
+        try:  
             response = (cast or str)(input(prompt))
             assert condition is None or condition(response)
             return response
@@ -70,42 +73,43 @@ def get_input(prompt = "", cast = None, condition = None, errorMessage = None):
             print(errorMessage or "Invalid input. Try again.")
 
 
-
-
-
 def create_own_workout():
     """
     Allows user to create own workout
     """
     print("Create your own workout.\n")
-    new_workout = get_input(prompt = "Name your workout: ")
+    new_workout = get_input(prompt="Name your workout: ")
     print("You are limited to 4 exercises to pick carefully!\n")
-    create_exercise1 = get_input(prompt = "Enter your exercise name: ")
-    create_exercise2 = get_input(prompt = "Enter your exercise name: ")
-    create_exercise3 = get_input(prompt = "Enter your exercise name: ")
-    create_exercise4 = get_input(prompt = "Enter your exercise name: ")
+    create_exercise1 = get_input(prompt="Enter your exercise name: ")
+    create_exercise2 = get_input(prompt="Enter your exercise name: ")
+    create_exercise3 = get_input(prompt="Enter your exercise name: ")
+    create_exercise4 = get_input(prompt="Enter your exercise name: ")
     print("Now enter the workouts sets and reps.")
     print("You are limited to numbers 1-9.\n")
-    create_sets = get_input(prompt = "Enter the amount of sets per exercise: ", cast = int)
-    create_reps = get_input(prompt = "Enter the amount of reps per exercise: ", cast = int)
+    create_sets = get_input(prompt="Enter the sets per exercise: ", cast=int)
+    create_reps = get_input(prompt="Enter the reps per exercise: ", cast=int)
     print("Well done you have created your own workout!\n")
-    print("If you would like to view your workout press V or to create a new one press C.\n")
+    print("If you would like to view your workout press V.")
+    print("To create a new workout press C.\n") 
     data = [[new_workout, create_exercise1, create_exercise2, create_exercise3, create_exercise4, create_sets, create_reps]]
     update_workouts(data)
+
 
 def update_workouts(data):
     """
     updates the workouts worksheet
     """
-    print("Updating Workout Database...\n")
+    print("Saving created workout...\n")
     workouts.insert_rows(data)
-    print("Workout succesfully added to Workout Database.")
+    print("Workout succesfully saved.")
+
 
 def view_workouts():
     """
     retrieves the workouts worksheets
     """
-     pprint(workouts.get_all_values())
+    pprint(workouts.get_all_values())
+
 
 def validate_input(main_choice):
     """
@@ -113,6 +117,7 @@ def validate_input(main_choice):
     """
     pattern = re.compile('[1-3]{1}')
     return pattern.match(main_choice)
+
 
 def main():
     """
@@ -124,11 +129,12 @@ def main():
         create_own_workout()
     else:
         view_workouts()
-   
+
+  
 print("Welcome to the Gym Routine!\n")
 print("To pick a routine press 1.\n")
 print("To create own workout press 2.\n")
-print("To view the workout database press 3.\n")
+print("To view saved workouts press 3.\n")
 main_choice = input("Enter your choice here: ")
 validate_input(main_choice)
 main()
